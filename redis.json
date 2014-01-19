@@ -1,0 +1,27 @@
+{
+  "builders": [ { "type": "amazon-ebs",
+                  "region": "us-east-1",
+                  "source_ami": "ami-de0d9eb7",
+                  "instance_type": "t1.micro",
+                  "ssh_username": "ubuntu",
+                  "ami_name": "redis-server {{timestamp}}"
+                }
+              ],
+  "provisioners": [
+    { "type": "shell",
+      "inline": [ "sudo mkdir /provisioning",
+                  "sudo chown ubuntu /provisioning"
+                ]
+    },
+    { "type": "file",
+      "source": "provisioning/",
+      "destination": "/provisioning"
+    },
+    { "type": "shell",
+      "inline": [ "sleep 30",
+                  "chmod +x /provisioning/*",
+                  "sudo /provisioning/install redis"
+                ]
+    }
+  ]
+}

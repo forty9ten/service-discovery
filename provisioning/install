@@ -1,0 +1,9 @@
+#!/bin/bash
+
+set -e
+
+export SCRIPT_PATH=$( cd "$( dirname "$0" )" && pwd )
+export CONF="$SCRIPT_PATH/conf"
+
+"$SCRIPT_PATH/prep"
+"$SCRIPT_PATH/install_$1"
