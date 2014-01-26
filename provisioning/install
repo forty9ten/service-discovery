@@ -6,4 +6,7 @@ export SCRIPT_PATH=$( cd "$( dirname "$0" )" && pwd )
 export CONF="$SCRIPT_PATH/conf"
 
 "$SCRIPT_PATH/prep"
-"$SCRIPT_PATH/install_$1"
+
+for COMPONENT in "$@"; do
+  "$SCRIPT_PATH/install_$COMPONENT"
+done
