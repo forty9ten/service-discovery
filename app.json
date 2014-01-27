@@ -4,7 +4,7 @@
                   "source_ami": "ami-de0d9eb7",
                   "instance_type": "t1.micro",
                   "ssh_username": "ubuntu",
-                  "ami_name": "redis-server {{timestamp}}"
+                  "ami_name": "app {{timestamp}}"
                 }
               ],
   "provisioners": [
@@ -20,7 +20,7 @@
     { "type": "shell",
       "inline": [ "sleep 30",
                   "chmod +x /provisioning/*",
-                  "sudo /provisioning/install redis"
+                  "sudo /provisioning/install app"
                 ]
     }
   ]
