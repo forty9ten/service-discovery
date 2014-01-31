@@ -5,5 +5,9 @@ set -e
 export SCRIPT_PATH=$( cd "$( dirname "$0" )" && pwd )
 export CONF="$SCRIPT_PATH/conf"
 
-"$SCRIPT_PATH/prep"
-"$SCRIPT_PATH/install_$1"
+template() {
+  eval "echo \"$(sed 's/\"/\\"/g' "$1")\"" > "$2"
+}
+
+source "$SCRIPT_PATH/prep"
+source "$SCRIPT_PATH/install_$1"

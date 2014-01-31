@@ -5,17 +5,7 @@ apt-get install -y haproxy
 apt-get install -y ruby1.9.1 ruby1.9.1-dev rubygems1.9.1 git-core
 apt-get install -y supervisor
 
-gem install --no-rdoc --no-ri rake bundler thin sinatra
-
-# Install from git since rubygems.org is only 0.2.1
-cd /opt
-  git clone https://github.com/airbnb/synapse.git
-  cd synapse
-    git checkout -q v0.8.0
-    rake build
-    gem install --no-rdoc --no-ri pkg/synapse-0.8.0.gem
-  cd -
-cd -
+gem install --no-rdoc --no-ri rake bundler thin sinatra synapse
 
 cp $CONF/app/haproxy /etc/default/haproxy
-cp $CONF/app/synapse.conf /etc/synapse.conf
+template $CONF/app/synapse.conf /etc/synapse.conf
