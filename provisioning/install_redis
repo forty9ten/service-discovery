@@ -1,3 +1,14 @@
 #!/bin/bash
 
+apt-get install -y build-essential
+apt-get install -y ruby1.9.1 ruby1.9.1-dev rubygems1.9.1
+apt-get install -y supervisor
+
+gem install --no-rdoc --no-ri nerve
+
+template $CONF/db/nerve.conf /etc/nerve.conf
+cp $CONF/db/supervisor/nerve.conf /etc/supervisor/conf.d/nerve.conf
+
 apt-get install -y redis-server
+cp $CONF/db/redis.conf /etc/redis/redis.conf
+service redis restart

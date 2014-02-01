@@ -2,10 +2,11 @@
 
 apt-get install -y build-essential
 apt-get install -y haproxy
-apt-get install -y ruby1.9.1 ruby1.9.1-dev rubygems1.9.1 git-core
+apt-get install -y ruby1.9.1 ruby1.9.1-dev rubygems1.9.1
 apt-get install -y supervisor
 
 gem install --no-rdoc --no-ri rake bundler thin sinatra synapse
 
 cp $CONF/app/haproxy /etc/default/haproxy
 template $CONF/app/synapse.conf /etc/synapse.conf
+cp $CONF/app/supervisor/synapse.conf /etc/supervisor/conf.d/synapse.conf
