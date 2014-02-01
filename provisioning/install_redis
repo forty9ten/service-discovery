@@ -8,7 +8,8 @@ gem install --no-rdoc --no-ri nerve
 
 template $CONF/db/nerve.conf /etc/nerve.conf
 cp $CONF/db/supervisor/nerve.conf /etc/supervisor/conf.d/nerve.conf
+supervisorctl reload
 
 apt-get install -y redis-server
 cp $CONF/db/redis.conf /etc/redis/redis.conf
-service redis restart
+service redis-server restart

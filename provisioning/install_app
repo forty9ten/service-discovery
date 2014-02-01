@@ -10,3 +10,4 @@ gem install --no-rdoc --no-ri rake bundler thin sinatra synapse
 cp $CONF/app/haproxy /etc/default/haproxy
 template $CONF/app/synapse.conf /etc/synapse.conf
 cp $CONF/app/supervisor/synapse.conf /etc/supervisor/conf.d/synapse.conf
+supervisorctl reload
