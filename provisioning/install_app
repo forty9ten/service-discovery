@@ -11,7 +11,7 @@ cp $CONF/app/haproxy /etc/default/haproxy
 template $CONF/app/synapse.conf.tmpl /etc/synapse.conf
 cp $CONF/app/supervisor/synapse.conf /etc/supervisor/conf.d/synapse.conf
 
-cp $SCRIPT_PATH/app.rb /opt
+cp $SCRIPT_PATH/../app.rb /opt
 cp $CONF/app/supervisor/app.conf /etc/supervisor/conf.d/app.conf
 
 supervisorctl reload
