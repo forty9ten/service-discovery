@@ -10,6 +10,15 @@ Vagrant.configure('2') do |config|
     SH
   end
 
+  config.vm.define 'app' do |c|
+    c.vm.hostname = 'app.demo.devopscasts.com'
+    c.vm.network :private_network, ip: '192.168.33.20'
+    c.vm.provision :shell, inline: <<-SH
+      export ZOOKEEPER=192.168.33.10:2181
+      sudo -E /vagrant/provisioning/install app
+    SH
+  end
+
   config.vm.define 'db' do |c|
     c.vm.hostname = 'db.demo.devopscasts.com'
     c.vm.network :private_network, ip: '192.168.33.30'
@@ -28,12 +37,4 @@ Vagrant.configure('2') do |config|
     SH
   end
 
-  config.vm.define 'app' do |c|
-    c.vm.hostname = 'app.demo.devopscasts.com'
-    c.vm.network :private_network, ip: '192.168.33.20'
-    c.vm.provision :shell, inline: <<-SH
-      export ZOOKEEPER=192.168.33.10:2181
-      sudo -E /vagrant/provisioning/install app
-    SH
-  end
 end
