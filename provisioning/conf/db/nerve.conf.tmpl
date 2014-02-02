@@ -3,7 +3,7 @@
   "services": {
     "redis": {
       "port": 6379,
-      "host": "$IP",
+      "host": "`hostname -I | cut -d' ' -f2`",
       "zk_hosts": ["$ZOOKEEPER"],
       "zk_path": "/nerve/services/redis/services",
       "check_interval": 2,

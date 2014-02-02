@@ -12,18 +12,25 @@ Vagrant.configure('2') do |config|
 
   config.vm.define 'db' do |c|
     c.vm.hostname = 'db.demo.devopscasts.com'
-    c.vm.network :private_network, ip: '192.168.33.20'
+    c.vm.network :private_network, ip: '192.168.33.30'
     c.vm.provision :shell, inline: <<-SH
       export ZOOKEEPER=192.168.33.10:2181
-      export IP=192.168.33.20
       sudo -E /vagrant/provisioning/install redis
     SH
   end
 
+  config.vm.define 'dbbackup' do |c|
+    c.vm.hostname = 'dbbackup.demo.devopscasts.com'
+    c.vm.network :private_network, ip: '192.168.33.40'
+    c.vm.provision :shell, inline: <<-SH
+      export ZOOKEEPER=192.168.33.10:2181
+      sudo -E /vagrant/provisioning/install redis
+    SH
+  end
 
   config.vm.define 'app' do |c|
     c.vm.hostname = 'app.demo.devopscasts.com'
-    c.vm.network :private_network, ip: '192.168.33.30'
+    c.vm.network :private_network, ip: '192.168.33.20'
     c.vm.provision :shell, inline: <<-SH
       export ZOOKEEPER=192.168.33.10:2181
       sudo -E /vagrant/provisioning/install app

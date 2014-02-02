@@ -6,7 +6,7 @@ apt-get install -y supervisor
 
 gem install --no-rdoc --no-ri nerve
 
-template $CONF/db/nerve.conf /etc/nerve.conf
+template $CONF/db/nerve.conf.tmpl /etc/nerve.conf
 cp $CONF/db/supervisor/nerve.conf /etc/supervisor/conf.d/nerve.conf
 supervisorctl reload
 
