@@ -36,5 +36,4 @@ Vagrant.configure('2') do |config|
       sudo -E /vagrant/provisioning/install redis
     SH
   end
-
 end
