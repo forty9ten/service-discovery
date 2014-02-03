@@ -1,0 +1,12 @@
+#!/bin/sh
+
+apt-get install -y openjdk-7-jdk openjdk-7-jre tomcat7
+
+# Run tomcat on port 80 since Eureka defaults to that port
+cp $CONF/eureka/server.xml /etc/tomcat7/server.xml
+cp $CONF/eureka/tomcat7 /etc/default/tomcat7
+echo 0.0.0.0/32:80 > /etc/authbind/byuid/tomcat7
+
+service tomcat7 restart
+
+cp $SCRIPT_PATH/../eureka.war /var/lib/tomcat7/webapps/eureka.war

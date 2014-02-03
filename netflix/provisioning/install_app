@@ -1,0 +1,14 @@
+#!/bin/sh
+
+apt-get install -y openjdk-7-jdk openjdk-7-jre unzip supervisor
+
+cd /opt
+  wget -q http://dist.groovy.codehaus.org/distributions/groovy-binary-2.2.1.zip
+  unzip groovy-binary-2.2.1.zip
+  ln -s groovy-2.2.1 groovy
+cd -
+
+cp $SCRIPT_PATH/../app.groovy /opt
+
+cp $CONF/app/supervisor/app.conf /etc/supervisor/conf.d/app.conf
+supervisorctl reload
