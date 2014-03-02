@@ -1,0 +1,26 @@
+repositories {
+  mavenCentral()
+}
+
+apply plugin: 'idea'
+apply plugin: 'jetty'
+apply plugin: 'war'
+
+dependencies {
+    compile 'com.netflix.pytheas:pytheas-core:1.14'
+    compile 'com.netflix.karyon:karyon-extensions:1.0.22'
+
+    testCompile 'junit:junit:4.10'
+    testCompile 'org.eclipse.jetty:jetty-server:7.6.7.v20120910'
+    testCompile 'org.eclipse.jetty:jetty-servlet:7.6.7.v20120910'
+}
+
+jettyRun.doFirst {
+    System.setProperty("archaius.deployment.applicationId","backend")
+    System.setProperty("archaius.deployment.environment","dev")
+    System.setProperty("com.netflix.karyon.")
+
+}
+
+jettyRun.contextPath = ''
+jettyRun.httpPort = 8081

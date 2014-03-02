@@ -1,0 +1,38 @@
+repositories {
+  mavenCentral()
+}
+
+apply plugin: 'idea'
+apply plugin: 'jetty'
+apply plugin: 'war'
+
+dependencies {
+    compile 'com.netflix.pytheas:pytheas-core:1.14'
+    compile 'com.netflix.karyon:karyon-extensions:1.0.22'
+
+    compile 'com.netflix.ribbon:ribbon-eureka:0.3.9'
+    compile 'com.netflix.ribbon:ribbon-httpclient:0.3.9'
+
+    compile 'commons-io:commons-io:2.4'
+
+    compile 'jetty:jetty:6.0.2'
+    compile 'jetty:servlet-api:2.5-6.0.2'
+    compile 'jetty:jetty-util:6.0.2'
+    compile 'jetty:jsp:2.1-6.0.2'
+    compile 'jetty:jsp-api:2.1-6.0.2'
+
+    compile 'javax.ws.rs:jsr311-api:1.1.1'
+
+//    testCompile 'junit:junit:4.10'
+//    testCompile 'org.eclipse.jetty:jetty-server:7.6.7.v20120910'
+//    testCompile 'org.eclipse.jetty:jetty-servlet:7.6.7.v20120910'
+}
+
+jettyRun.doFirst {
+    System.setProperty("archaius.deployment.applicationId","frontend")
+    System.setProperty("archaius.deployment.environment","dev")
+    System.setProperty("com.netflix.karyon.server.base.packages", "com.netflix")
+
+}
+
+jettyRun.contextPath = ''
