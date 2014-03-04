@@ -1,14 +1,10 @@
 #!/bin/sh
 
-apt-get install -y openjdk-7-jdk openjdk-7-jre unzip supervisor
+RUNLEVEL=1 apt-get install -y openjdk-7-jdk openjdk-7-jre tomcat7
 
-cd /opt
-  wget -q http://dist.groovy.codehaus.org/distributions/groovy-binary-2.2.1.zip
-  unzip groovy-binary-2.2.1.zip
-  ln -s groovy-2.2.1 groovy
-cd -
+mkdir /var/lib/tomcat7/bin
+template $CONF/apps/setenv.sh.tmpl /var/lib/tomcat7/bin
 
-cp $SCRIPT_PATH/../app.groovy /opt
+cp $SCRIPT_PATH/../$ROLE.war /var/lib/tomcat7/webapps/ROOT.war
 
-cp $CONF/app/supervisor/app.conf /etc/supervisor/conf.d/app.conf
-supervisorctl reload
+service tomcat7 start

@@ -10,11 +10,22 @@ Vagrant.configure('2') do |config|
     SH
   end
 
-  config.vm.define 'app' do |c|
-    c.vm.hostname = 'app.demo.devopscasts.com'
+  config.vm.define 'frontend' do |c|
+    c.vm.hostname = 'frontend.demo.devopscasts.com'
     c.vm.network :private_network, ip: '192.168.33.20'
     c.vm.provision :shell, inline: <<-SH
       export EUREKA=http://192.168.33.10/eureka
+      export ROLE=frontend
+      sudo -E /vagrant/provisioning/install app
+    SH
+  end
+
+  config.vm.define 'backend' do |c|
+    c.vm.hostname = 'backend.demo.devopscasts.com'
+    c.vm.network :private_network, ip: '192.168.33.30'
+    c.vm.provision :shell, inline: <<-SH
+      export EUREKA=http://192.168.33.10/eureka
+      export ROLE=backend
       sudo -E /vagrant/provisioning/install app
     SH
   end
