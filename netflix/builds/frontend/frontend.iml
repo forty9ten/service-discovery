@@ -116,6 +116,10 @@
     <orderEntry type="library" exported="" name="jetty-6.0.2" level="project" />
     <orderEntry type="library" exported="" name="jetty-util-6.0.2" level="project" />
     <orderEntry type="library" exported="" name="servlet-api-2.5-6.0.2" level="project" />
+    <orderEntry type="library" exported="" name="eureka-client-1.1.107" level="project" />
+    <orderEntry type="library" exported="" name="ribbon-core-0.3.7" level="project" />
+    <orderEntry type="library" exported="" name="ribbon-eureka-0.3.7" level="project" />
+    <orderEntry type="library" exported="" name="ribbon-httpclient-0.3.7" level="project" />
   </component>
 </module>
 
