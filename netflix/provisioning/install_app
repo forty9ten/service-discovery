@@ -2,9 +2,10 @@
 
 RUNLEVEL=1 apt-get install -y openjdk-7-jdk openjdk-7-jre tomcat7
 
-mkdir /var/lib/tomcat7/bin
-template $CONF/apps/setenv.sh.tmpl /var/lib/tomcat7/bin
+mkdir -p /var/lib/tomcat7/bin
+template $CONF/apps/setenv.sh.tmpl /var/lib/tomcat7/bin/setenv.sh
 
+rm -rf /var/lib/tomcat7/webapps/ROOT
 cp $SCRIPT_PATH/../$ROLE.war /var/lib/tomcat7/webapps/ROOT.war
 
 service tomcat7 start
