@@ -9,5 +9,7 @@ template() {
   eval "echo \"$(sed 's/\"/\\"/g' "$1")\"" > "$2"
 }
 
+export IPADDRESS=`hostname -I | cut -d' ' -f2`
+
 source "$SCRIPT_PATH/prep"
 source "$SCRIPT_PATH/install_$1"
