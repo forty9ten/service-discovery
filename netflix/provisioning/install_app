@@ -8,4 +8,6 @@ template $CONF/apps/setenv.sh.tmpl /var/lib/tomcat7/bin/setenv.sh
 rm -rf /var/lib/tomcat7/webapps/ROOT
 cp $SCRIPT_PATH/../$ROLE.war /var/lib/tomcat7/webapps/ROOT.war
 
+cp $CONF/apps/hosts /etc/hosts
+
 service tomcat7 start
