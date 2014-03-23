@@ -1,0 +1,13 @@
+#!/bin/sh
+
+apt-get install -y wget supervisor
+
+cd /opt
+  wget https://github.com/coreos/etcd/releases/download/v0.3.0/etcd-v0.3.0-linux-amd64.tar.gz
+  tar -zxf etcd-v0.3.0-linux-amd64.tar.gz
+  ln -s etcd-v0.3.0-linux-amd64 etcd
+cd -
+
+cp $CONF/etcd/supervisor.conf /etc/supervisor/conf.d/etcd.conf
+
+supervisorctl reload

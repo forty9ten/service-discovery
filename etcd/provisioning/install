@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+export SCRIPT_PATH=$( cd "$( dirname "$0" )" && pwd )
+export CONF="$SCRIPT_PATH/conf"
+
+template() {
+  eval "echo \"$(sed 's/\"/\\"/g' "$1")\"" > "$2"
+}
+
+export IPADDRESS=`hostname -I | cut -d' ' -f2`
+
+source "$SCRIPT_PATH/prep"
+source "$SCRIPT_PATH/install_$1"
