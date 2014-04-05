@@ -19,7 +19,11 @@ var changeCb = e.generator(
 var readCb = e.generator(
   function(error) { console.log(error.text); },
   function(result) {
-    backends = result.nodes.map(function (n) { return n.value; });
+    if (result.nodes) {
+      backends = result.nodes.map(function (n) { return n.value; });
+    } else {
+      backends = [];
+    }
   }
 );
 
@@ -38,11 +42,15 @@ http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/plain'});
 
   var backend = backends[Math.floor(Math.random() * backends.length)];
-  request(backend, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      res.end(body);
-    } else {
-      res.end(error);
-    }
-  });
+  if (backend) {
+    request(backend, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        res.end(body);
+      } else {
+        res.end(error);
+      }
+    });
+  } else {
+    res.end("No backend available");
+  }
 }).listen(process.env.PORT || 3000);
