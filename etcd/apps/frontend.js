@@ -47,7 +47,7 @@ http.createServer(function (req, res) {
       if (!error && response.statusCode == 200) {
         res.end(body);
       } else {
-        res.end(error);
+        res.end(error.toString());
       }
     });
   } else {
