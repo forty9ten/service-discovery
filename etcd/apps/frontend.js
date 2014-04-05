@@ -8,24 +8,37 @@ var e = new etcd({
   url: process.env.ETCD_URL || 'http://192.168.33.10:4001'
 });
 
-var cb = e.generator(
-  function(error) { console.log(error.text); },
-  function(result) {
-    backends = [result.value];
+var changeCb = e.generator(
+  function (error) { console.log(error.text); },
+  function (result) {
+    readBackends()
     watchBackends();
   }
 );
 
-function watchBackends() {
-  e.read({'key': '/backends', recursive: true, wait: true}, cb);
+var readCb = e.generator(
+  function(error) { console.log(error.text); },
+  function(result) {
+    backends = result.nodes.map(function (n) { return n.value; });
+  }
+);
+
+function readBackends() {
+  e.read({'key': '/backends', recursive: true}, readCb);
 }
 
-e.read({'key': '/backends', recursive: true}, cb);
+function watchBackends() {
+  e.read({'key': '/backends', recursive: true, wait: true}, changeCb);
+}
+
+readBackends();
+watchBackends();
 
 http.createServer(function (req, res) {
   res.writeHead(200, {'Content-Type': 'text/plain'});
 
-  request(backends[0], function (error, response, body) {
+  var backend = backends[Math.floor(Math.random() * backends.length)];
+  request(backend, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       res.end(body);
     } else {
