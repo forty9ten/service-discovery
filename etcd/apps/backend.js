@@ -9,7 +9,7 @@ var hostname = os.hostname(),
     url = 'http://' + hostname + ':' + port;
 
 var e = new etcd({
-  url: process.env.ETCD_URL || 'http://192.168.33.10:4001'
+  url: process.env.ETCD_URL
 });
 
 
