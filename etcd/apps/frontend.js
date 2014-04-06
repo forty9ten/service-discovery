@@ -45,7 +45,7 @@ http.createServer(function (req, res) {
   if (backend) {
     request(backend, function (error, response, body) {
       if (!error && response.statusCode == 200) {
-        res.end(body);
+        res.end("Accessing frontend, got: " + body);
       } else {
         res.end(error.toString());
       }
