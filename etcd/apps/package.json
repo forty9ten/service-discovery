@@ -1,11 +1,15 @@
 {
   "name": "apps",
   "version": "0.0.0",
-  "description": "",
-  "author": "",
-  "license": "BSD",
+  "description": "apps for etcd demo",
   "dependencies": {
     "nodejs-etcd": "^0.1.1",
     "request": "^2.34.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/forty9ten/service-discovery"
+  },
+  "author": "",
+  "license": "ISC"
 }
