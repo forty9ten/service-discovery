@@ -1,0 +1,19 @@
+#!/bin/sh
+
+apt-get install -y python-software-properties
+
+apt-add-repository -y ppa:chris-lea/node.js
+apt-get update \
+  -o Dir::Etc::sourcelist="sources.list.d/chris-lea-node_js-precise.list" \
+  -o Dir::Etc::sourceparts="-" -o APT::Get::List-Cleanup="0"
+
+apt-get install -y nodejs supervisor
+
+cp -r $SCRIPT_PATH/../apps /opt
+
+cd /opt/apps
+  npm install
+cd -
+
+template $CONF/apps/supervisord.conf.tmpl /etc/supervisor/conf.d/$APP.conf
+supervisorctl reload

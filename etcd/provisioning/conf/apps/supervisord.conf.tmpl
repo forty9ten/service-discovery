@@ -1,0 +1,8 @@
+[program:$APP]
+command=/usr/bin/node $APP.js
+directory=/opt/apps
+environment=ETCD_URL="$ETCD_URL"
+autostart=true
+autorestart=true
+stderr_logfile=/var/log/$APP.err.log
+stdout_logfile=/var/log/$APP.out.log

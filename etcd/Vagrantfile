@@ -1,4 +1,8 @@
 Vagrant.configure('2') do |config|
+  # Install via: vagrant plugin install landrush
+  config.landrush.enable
+  config.landrush.tld = 'demo.devopscasts.com'
+
   config.vm.box = 'opscode_ubuntu-12.04_provisionerless'
   config.vm.box_url = 'https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-12.04_provisionerless.box'
 
@@ -7,6 +11,36 @@ Vagrant.configure('2') do |config|
     c.vm.network :private_network, ip: '192.168.33.10'
     c.vm.provision :shell, inline: <<-SH
       sudo -E /vagrant/provisioning/install etcd
+    SH
+  end
+
+  config.vm.define 'frontend' do |c|
+    c.vm.hostname = 'frontend.demo.devopscasts.com'
+    c.vm.network :private_network, ip: '192.168.33.20'
+    c.vm.provision :shell, inline: <<-SH
+      export ETCD_URL=http://etcd.demo.devopscasts.com:4001
+      export APP=frontend
+      sudo -E /vagrant/provisioning/install app
+    SH
+  end
+
+  config.vm.define 'backend1' do |c|
+    c.vm.hostname = 'backend1.demo.devopscasts.com'
+    c.vm.network :private_network, ip: '192.168.33.30'
+    c.vm.provision :shell, inline: <<-SH
+      export ETCD_URL=http://etcd.demo.devopscasts.com:4001
+      export APP=backend
+      sudo -E /vagrant/provisioning/install app
+    SH
+  end
+
+  config.vm.define 'backend2' do |c|
+    c.vm.hostname = 'backend2.demo.devopscasts.com'
+    c.vm.network :private_network, ip: '192.168.33.40'
+    c.vm.provision :shell, inline: <<-SH
+      export ETCD_URL=http://etcd.demo.devopscasts.com:4001
+      export APP=backend
+      sudo -E /vagrant/provisioning/install app
     SH
   end
 end
